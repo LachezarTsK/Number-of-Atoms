@@ -1,14 +1,7 @@
 
-/**
- * @param {string} formula
- * @return {string}
- */
-var countOfAtoms = function (formula) {
+function countOfAtoms(formula: string): string {
     const util = new Util();
-    /*
-     Map<string, number>
-     */
-    const atomsToFrequency = createMapAtomsToFrequency(formula, util);
+    const atomsToFrequency: Map<string, number> = createMapAtomsToFrequency(formula, util);
     return createConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(atomsToFrequency);
 };
 
@@ -48,12 +41,7 @@ class Util {
     accumulatedAtomicFrequencyInBrackets = 0;
 }
 
-/**
- * @param {string} formula
- * @param {Util} util 
- * @return {Map<string, number>}
- */
-function createMapAtomsToFrequency(formula, util) {
+function createMapAtomsToFrequency(formula: string, util: Util): Map<string, number> {
 
     /*
      If there is an opening bracket and the atomic frequency immediately preceding 
@@ -68,12 +56,8 @@ function createMapAtomsToFrequency(formula, util) {
      the frequency of the atoms within the brackets can be immediately updated with the value of 
      accumulatedAtomicFrequencyInBrackets.        
      */
-    const atomicFrequencyPerOpenedBracket = new Array();
-
-    /*
-     Map<string, number>
-     */
-    const atomsToFrequency = new Map();
+    const atomicFrequencyPerOpenedBracket: number[] = new Array();
+    const atomsToFrequency: Map<string, number> = new Map();
     util.accumulatedAtomicFrequencyInBrackets = 0;
 
     for (util.index = formula.length - 1; util.index >= 0; --util.index) {
@@ -101,12 +85,7 @@ function createMapAtomsToFrequency(formula, util) {
     return atomsToFrequency;
 }
 
-/**
- * @param {string} formula
- * @param {Util} util 
- * @return {number}
- */
-function extractAtomicFrequency(formula, util) {
+function extractAtomicFrequency(formula: string, util: Util): number {
     let frequency = Util.SINGLE_FREQUENCY_WITHOUT_NUMBER;
     let digitPosition = 1;
     while (util.index >= 0 && isDigit(formula.charAt(util.index))) {
@@ -117,13 +96,8 @@ function extractAtomicFrequency(formula, util) {
     return frequency;
 }
 
-/**
- * @param {string} formula
- * @param {Util} util 
- * @return {string}
- */
-function extractAtomicLabel(formula, util) {
-    const atomicLabel = new Array();
+function extractAtomicLabel(formula: string, util: Util): string {
+    const atomicLabel: string[] = new Array();
     let capitalLettersFrequency = 0;
 
     while (util.index >= 0 && isLetter(formula.charAt(util.index)) && capitalLettersFrequency === 0) {
@@ -137,49 +111,26 @@ function extractAtomicLabel(formula, util) {
     return atomicLabel.reverse().join('');
 }
 
-/**
- * @param {string} character
- * @return {boolean}
- */
-function isDigit(character) {
+function isDigit(character: string): boolean {
     return /[0-9]/.test(character);
 }
 
-/**
- * @param {string} character
- * @return {boolean}
- */
-function isLetter(character) {
+function isLetter(character: string): boolean {
     return /[a-zA-Z]/.test(character);
 }
 
-/**
- * @param {string} character
- * @return {boolean}
- */
-function isCapitalLetter(character) {
+function isCapitalLetter(character: string): boolean {
     return /[A-Z]/.test(character);
 }
 
-/**
- * @param {number[]} atomicFrequencyPerOpenedBracket
- * @param {number} atomicFrequency 
- * @param {Util} util 
- * @return {void}
- */
-function handleOpeningBracket(atomicFrequencyPerOpenedBracket, atomicFrequency, util) {
+function handleOpeningBracket(atomicFrequencyPerOpenedBracket: number[], atomicFrequency: number, util: Util): void {
     atomicFrequencyPerOpenedBracket.push(atomicFrequency);
     if (atomicFrequency !== Util.SINGLE_FREQUENCY_WITHOUT_NUMBER) {
         util.accumulatedAtomicFrequencyInBrackets = Math.max(util.accumulatedAtomicFrequencyInBrackets, 1) * atomicFrequency;
     }
 }
 
-/**
- * @param {number[]} atomicFrequencyPerOpenedBracket
- * @param {Util} util 
- * @return {void}
- */
-function handleClosingBracket(atomicFrequencyPerOpenedBracket, util) {
+function handleClosingBracket(atomicFrequencyPerOpenedBracket: number[], util: Util): void {
     const atomicFrequencyMostRecentOpeningBracket = atomicFrequencyPerOpenedBracket.pop();
     if (atomicFrequencyPerOpenedBracket.length === 0) {
         util.accumulatedAtomicFrequencyInBrackets = 0;
@@ -188,13 +139,7 @@ function handleClosingBracket(atomicFrequencyPerOpenedBracket, util) {
     }
 }
 
-/**
- * @param {Map<string, number>} atomsToFrequency
- * @param {string} atomicLabel 
- * @param {number} atomicFrequency 
- * @return {void}
- */
-function updateMapAtomsToFrequency(atomsToFrequency, atomicLabel, atomicFrequency) {
+function updateMapAtomsToFrequency(atomsToFrequency: Map<string, number>, atomicLabel: string, atomicFrequency: number): void {
     if (atomsToFrequency.has(atomicLabel)) {
         atomsToFrequency.set(atomicLabel, atomsToFrequency.get(atomicLabel) + Math.max(atomicFrequency, 1));
     } else if (atomicLabel.length > 0) {
@@ -202,12 +147,8 @@ function updateMapAtomsToFrequency(atomsToFrequency, atomicLabel, atomicFrequenc
     }
 }
 
-/**
- * @param {Map<string, number>} atomsToFrequency
- * @return {string}
- */
-function createConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(atomsToFrequency) {
-    const atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = new Array();
+function createConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(atomsToFrequency: Map<string, number>): string {
+    const atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel: string[] = new Array();
     for (let current of atomsToFrequency.keys()) {
         if (atomsToFrequency.get(current) !== Util.SINGLE_FREQUENCY_WITHOUT_NUMBER) {
             current += atomsToFrequency.get(current);
