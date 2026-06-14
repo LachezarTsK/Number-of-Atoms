@@ -142,21 +142,16 @@ class Solution {
     }
 
     private fun createConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(atomsToFrequency: MutableMap<String, Int>): String {
-        val pairsAtomsAndFrequencies = mutableListOf<String>()
+        val atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = mutableListOf<String>()
         for ((label, frequency) in atomsToFrequency) {
             var current = label
             if (frequency != SINGLE_FREQUENCY_WITHOUT_NUMBER) {
                 current += frequency
             }
-            pairsAtomsAndFrequencies.add(current)
+            atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.add(current)
         }
-        pairsAtomsAndFrequencies.sort()
+        atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.sort()
 
-        val atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = StringBuilder()
-        for (atomAndFrequency in pairsAtomsAndFrequencies) {
-            atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.append(atomAndFrequency)
-        }
-
-        return atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.toString()
+        return atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.joinToString("")
     }
 }
