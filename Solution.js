@@ -207,19 +207,14 @@ function updateMapAtomsToFrequency(atomsToFrequency, atomicLabel, atomicFrequenc
  * @return {string}
  */
 function createConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(atomsToFrequency) {
-    const pairsAtomsAndFrequencies = new Array();
+    const atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = new Array();
     for (let current of atomsToFrequency.keys()) {
         if (atomsToFrequency.get(current) !== Util.SINGLE_FREQUENCY_WITHOUT_NUMBER) {
             current += atomsToFrequency.get(current);
         }
-        pairsAtomsAndFrequencies.push(current);
+        atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.push(current);
     }
-    pairsAtomsAndFrequencies.sort((first, second) => first.localeCompare(second));
-
-    const atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = new Array();
-    for (let atomAndFrequency of pairsAtomsAndFrequencies) {
-        atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.push(atomAndFrequency);
-    }
+    atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.sort((first, second) => first.localeCompare(second));
 
     return atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.join('');
 }
