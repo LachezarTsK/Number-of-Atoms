@@ -148,20 +148,15 @@ func containsKey[Key comparable, Value any](mapToCheck map[Key]Value, key Key) b
 }
 
 func createConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(atomsToFrequency map[string]int) string {
-    pairsAtomsAndFrequencies := []string{}
+    atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel := []string{}
     for label, frequency := range atomsToFrequency {
         current := label
         if frequency != SINGLE_FREQUENCY_WITHOUT_NUMBER {
             current += strconv.Itoa(frequency)
         }
-        pairsAtomsAndFrequencies = append(pairsAtomsAndFrequencies, current)
+        atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = append(atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel, current)
     }
-    slices.Sort(pairsAtomsAndFrequencies)
+    slices.Sort(atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel)
 
-    atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel := strings.Builder{}
-    for _, atomAndFrequency := range pairsAtomsAndFrequencies {
-        atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.WriteString(atomAndFrequency)
-    }
-
-    return atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.String()
+    return strings.Join(atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel, "")
 }
