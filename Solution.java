@@ -145,20 +145,15 @@ public class Solution {
     }
 
     private String createConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(Map<String, Integer> atomsToFrequency) {
-        List<String> pairsAtomsAndFrequencies = new ArrayList<>();
+        List<String> atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = new ArrayList<>();
         for (String current : atomsToFrequency.keySet()) {
             if (atomsToFrequency.get(current) != SINGLE_FREQUENCY_WITHOUT_NUMBER) {
                 current += atomsToFrequency.get(current);
             }
-            pairsAtomsAndFrequencies.add(current);
+            atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.add(current);
         }
-        Collections.sort(pairsAtomsAndFrequencies);
+        Collections.sort(atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel);
 
-        StringBuilder atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = new StringBuilder();
-        for (String atomAndFrequency : pairsAtomsAndFrequencies) {
-            atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.append(atomAndFrequency);
-        }
-
-        return atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.toString();
+        return String.join("", atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel);
     }
 }
