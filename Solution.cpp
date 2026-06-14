@@ -162,11 +162,7 @@ private:
             pairsAtomsAndFrequencies.push_back(current);
         }
         ranges::sort(pairsAtomsAndFrequencies, [](const auto& first, const auto& second) {return first < second; });
-
-        string atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel;
-        for (const auto& atomAndFrequency : pairsAtomsAndFrequencies) {
-            atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.append(atomAndFrequency);
-        }
+        string atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(pairsAtomsAndFrequencies.begin(), pairsAtomsAndFrequencies.end());
 
         return atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel;
     }
