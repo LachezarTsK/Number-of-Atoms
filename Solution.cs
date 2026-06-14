@@ -164,7 +164,7 @@ public class Solution
 
     private string CreateConstituentAtomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel(Dictionary<string, int> atomsToFrequency)
     {
-        List<string> pairsAtomsAndFrequencies = [];
+        List<string> atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = [];
         foreach (string label in atomsToFrequency.Keys)
         {
             string current = label;
@@ -172,16 +172,10 @@ public class Solution
             {
                 current += atomsToFrequency[current];
             }
-            pairsAtomsAndFrequencies.Add(current);
+            atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.Add(current);
         }
-        pairsAtomsAndFrequencies.Sort((first, second) => first.CompareTo(second));
+        atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.Sort((first, second) => first.CompareTo(second));
 
-        StringBuilder atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel = new();
-        foreach (string atomAndFrequency in pairsAtomsAndFrequencies)
-        {
-            atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.Append(atomAndFrequency);
-        }
-
-        return atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel.ToString();
+        return string.Join("", atomsAndFrequenciesSortedAlphabeticallyPerAtomicLabel);
     }
 }
